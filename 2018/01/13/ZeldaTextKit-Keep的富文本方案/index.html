@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="背景对于 Keep 社交部分的业务来说，PM 很想灵活的展示一些图文信息。这些信息可以图片文字混合排列，并且也要灵活。方便后端配置。对于单页面场景，使用 WebView 是一个不错的方案。但是如果是要放在列表当中，对于性能要求很高。WebView 就不太适用。所以就需要一个高性能的显示富文本的控件。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Keep-Mobile">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ZeldaTextKit - Keep 的富文本方案"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Keep-Mobile"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ZeldaTextKit - Keep 的富文本方案 - Keep-Mobile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>ZeldaTextKit - Keep 的富文本方案</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-01-13
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/iOS/">#iOS</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>对于 Keep 社交部分的业务来说，PM 很想灵活的展示一些图文信息。这些信息可以图片文字混合排列，并且也要灵活。方便后端配置。对于单页面场景，使用 WebView 是一个不错的方案。但是如果是要放在列表当中，对于性能要求很高。WebView 就不太适用。所以就需要一个高性能的显示富文本的控件。  </p>
+<p>当时项目里面其实已经引入了很多的富文本控件。包括 <a href="https://github.com/honcheng/RTLabel" target="_blank" rel="noopener">RTLabel</a>，<a href="https://github.com/ibireme/YYText" target="_blank" rel="noopener">YYText</a> ，<a href="https://github.com/TTTAttributedLabel/TTTAttributedLabel" target="_blank" rel="noopener">TTTAttributedLabel</a>  三个不同的富文本控件，这些控件或多或少都有些小问题。比如 RTLabel 已经很久没人维护，不支持 AutoLayout。另外两个不支持 HTML等。所以我们就想自己造个轮子。把项目里面的所有的控件统一。</p>
+<h1 id="调研以及实现"><a href="#调研以及实现" class="headerlink" title="调研以及实现"></a>调研以及实现</h1><p>基于上面的背景，这个控件需要支持 HTML，@ #hashtag# 解析也不能少。对于 AutoLayout 也要友好。 于是前期调研了一些现有的控件：</p>
+<ul>
+<li><a href="https://github.com/Cocoanetics/DTCoreText" target="_blank" rel="noopener">DTCoreText</a> 强大的富文本控件，可以解析 HTML + CSS</li>
+<li><a href="https://github.com/ibireme/YYText" target="_blank" rel="noopener">YYText</a> 支持图文混排，支持异步绘制，基于 CoreText 实现。支持简单的 Markdown/表情解析</li>
+<li><a href="https://github.com/optonaut/ActiveLabel.swift" target="_blank" rel="noopener">ActiveLabel</a> 支持 @ #hashtag# 等自定义正则解析的控件</li>
+</ul>
+<h2 id="HTML-解析"><a href="#HTML-解析" class="headerlink" title="HTML 解析"></a>HTML 解析</h2><p>对于 HTML 的支持， <a href="https://github.com/Cocoanetics/DTCoreText" target="_blank" rel="noopener">DTCoreText</a> 是非常强大的，文本的绘制基于 CoreText。HTML 的解析是单独的一套逻辑。渲染与逻辑分离。封装了不同的接口：DTAttributedLabel，DTAttributedTextCell，DTAttributedTextView。对于我们来说这个控件有点重，而且就目前的情况来说我们不需要对富文本进行编辑。只需要简单的显示就可以了。也不需要支持丰富的 CSS。所以我们参考了很多 <a href="https://github.com/Cocoanetics/DTCoreText" target="_blank" rel="noopener">DTCoreText</a> 的实现思路，使用了 SAX 解析方式。封装了一套 HTML 解析。具体的实现思路可以参考这篇文章：<a href="http://blog.cnbang.net/tech/2630/" target="_blank" rel="noopener">http://blog.cnbang.net/tech/2630/</a>  我在这里就不再赘述。</p>
+<h2 id="UI渲染"><a href="#UI渲染" class="headerlink" title="UI渲染"></a>UI渲染</h2><p>对于 UI 的渲染我们没有使用 CoreText， 而是使用了更友好的 TextKit。相比CoreText 的 c 接口，TextKit 更加现代，而且概念也比较少。我们使用了 TextKit 重新实现一个  ZeldaLabel。对于 TextKit 这篇文章写的很好：<a href="https://objccn.io/issue-5-1/" target="_blank" rel="noopener">https://objccn.io/issue-5-1/</a></p>
+<p>TextKit 分为三部分：</p>
+<ul>
+<li><p><code>NSTextStorage</code> 用于保存和管理富文本字符串。继承于 <code>NSAttributedString</code></p>
+</li>
+<li><p><code>NSTextContainer</code> 定义文本绘制的区域。</p>
+</li>
+<li><p><code>NSLayoutManager</code> 将所有的组件粘合在一起：监听 Text Storage 中文本或属性改变的通知，一旦接收到通知就触发布局进程。它将所有的 Text Storage 提供的文本翻译为字形。字形生成后，这个管理器向它的 Text Containers 查询文本可用以绘制的区域。然后开始逐行填充。填充完后就会显示在对应的控件上。</p>
+</li>
+</ul>
+<p>ZeldaLabel 使用 TextKit 重新实现了渲染，继承于 UILabel，首先在 attributedText 的 didSet 方法处理加工 AttributedString, 处理完成后把处理完的文本设置给 textStorage。<br>重写了 drawText 的绘制逻辑，使用 layoutManager 进行排版渲染:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let newOrigin = textOrigin(inRect: rect)</span><br><span class="line">let glyphRange = layoutManager.glyphRange(for: textContainer)</span><br><span class="line">layoutManager.drawBackground(forGlyphRange: glyphRange, at: newOrigin)</span><br><span class="line">layoutManager.drawGlyphs(forGlyphRange: glyphRange, at: newOrigin)</span><br></pre></td></tr></table></figure></p>
+<p>这样文本就可以显示在 UILabel 上面了</p>
+<h2 id="点击实现"><a href="#点击实现" class="headerlink" title="点击实现"></a>点击实现</h2><p>通过设置 attributedText 解析富文本信息。 遍历所有的<code>NSLinkAttributeName</code> 属性后保存一个数组。重写 touchesBegan 等事件实现点击判断对应的文本所在的 range ，如果是在之前保存的数组中，就触发点击，响应事件。将当前点击的 link 回调出去。<br>为了支持 @ #hashtag# 我们扩展了 <code>NSAttributedStringKey</code> 添加了<code>NSAttributedStringKeyMention</code> 和 <code>NSAttributedStringKeyHashTag</code> 这样就可以区分不同的点击类型，实现不同的回调和设置。</p>
+<h2 id="AutoLayout-支持"><a href="#AutoLayout-支持" class="headerlink" title="AutoLayout 支持"></a>AutoLayout 支持</h2><p>使用了TextKit 对 AutoLayout 支持就变得很简单。只需要重写 <code>intrinsicContentSize</code> 将 <code>NSTextContainer</code> 重新绘制一下文本就可以知道具体的 size 了</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ZeldaTextKit 在大部分场景下性能还是不错的。但是如果是混入了很多的图片的话，性能依然不是很好。未来可能也会提供使用异步的方式实现 UI 的渲染等。</p>
+<p>在做这个控件的时候当然也遇到了坑。对于 iOS 10.0 - 10.2 系统上面 emoji 的字体排版会居下一点点。造成被 emoji 被切断。对于我们的需求来说就是图片和 emoji 混排的时候，图片会更靠上一点。具体的bug 地址：<a href="https://openradar.appspot.com/radar?id=4998540401049600" target="_blank" rel="noopener">https://openradar.appspot.com/radar?id=4998540401049600</a> 苹果建议将 emoji 的字体替换，但是效果不是很好。无奈只能试了很多次调整对应的图片 <code>NSTextAttachment</code> 的位置。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Keep-Mobile<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
