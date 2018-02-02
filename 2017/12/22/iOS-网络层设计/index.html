@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="为什么要改写网络层呢？在各大公司的主App中网络层一定是相当重要的一个环节. 之前Keep 网络层设计比较臃肿，考虑的可扩展性太强，导致使用起来比较繁琐。前期网络设计中间的Protocol 层显示的十分冗余，无形添加了很多工作量，而且不支持很多功能，比如缓存、批量请求、网络取消等，所以需要一套更加编">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Keep-Mobile">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="网络层设计漫谈"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Keep-Mobile"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>网络层设计漫谈 - Keep-Mobile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>网络层设计漫谈</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-22
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/iOS/">#iOS</a> <a href="/tags/Network/">#Network</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="为什么要改写网络层呢？"><a href="#为什么要改写网络层呢？" class="headerlink" title="为什么要改写网络层呢？"></a>为什么要改写网络层呢？</h1><p>在各大公司的主App中网络层一定是相当重要的一个环节. 之前Keep 网络层设计比较臃肿，考虑的可扩展性太强，导致使用起来比较繁琐。前期网络设计中间的Protocol 层显示的十分冗余，无形添加了很多工作量，而且不支持很多功能，比如缓存、批量请求、网络取消等，所以需要一套更加编写方便统一的网络层。</p>
+<h1 id="之前的设计"><a href="#之前的设计" class="headerlink" title="之前的设计"></a>之前的设计</h1><p><img src="/images/network1.png" alt=""></p>
+<h3 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h3><ul>
+<li>声明具体的Protocol类</li>
+<li>在相应的 Handler 里面添加方法调用 DefaultOperation 来执行Protocol</li>
+<li>在具体的逻辑里面通过 HandlerFactory 来获取数据</li>
+</ul>
+<p>其中Protocol 一层定义不清楚，每次使用创建比较繁琐。</p>
+<h1 id="设计方案"><a href="#设计方案" class="headerlink" title="设计方案"></a>设计方案</h1><h3 id="设计需要考虑的问题"><a href="#设计需要考虑的问题" class="headerlink" title="设计需要考虑的问题"></a>设计需要考虑的问题</h3><ul>
+<li>解决调用繁琐的问题。</li>
+<li>Header 文件字段的填充。</li>
+<li>每个业务版本号的path 问题。</li>
+<li>缓存的问题。缓存地址和时间。</li>
+<li>考虑到目前网络层迁移的问题。</li>
+<li>网络错误的统一提示和解决。</li>
+<li>取消网络请求。</li>
+<li>回掉方法。</li>
+<li>Json 校验</li>
+<li>链式、批量调用</li>
+</ul>
+<p>参考YTNNetwork，更具业务量大小，Keep 采用分散化设计</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p><img src="/images/KEPRequest.png" alt=""></p>
+<h1 id="Code-Sample"><a href="#Code-Sample" class="headerlink" title="Code Sample"></a>Code Sample</h1><p>继承的方式调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">KEPPostRequest *postRequest = [[KEPPostRequest alloc] initWithParams:@&quot;1123581321&quot;];</span><br><span class="line">    [postRequest startWithBlock:^(__kindof KEPRequest * _Nonnull request) &#123;</span><br><span class="line">        NSLog(@&quot;success %@&quot;, request);</span><br><span class="line"></span><br><span class="line">    &#125; failure:^(__kindof KEPRequest * _Nonnull request) &#123;</span><br><span class="line">        NSLog(@&quot;failure %@&quot;, request);</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<p>直接调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">KEPRequest *request = [[KEPRequest alloc] init];</span><br><span class="line">    request.requestMethod = KEPRequestMethodPOST;</span><br><span class="line">    request.requestUrl = @&quot;/account/v2/login&quot;;</span><br><span class="line">    request.requestArgument =  @&#123;</span><br><span class="line">                                 @&quot;password&quot;: @&quot;xxxxx&quot;,</span><br><span class="line">                                 @&quot;countryCode&quot;: @&quot;86&quot;,</span><br><span class="line">                                 @&quot;mobile&quot;:@&quot;xxxxxx&quot;,</span><br><span class="line">                                 @&quot;countryName&quot;:@&quot;CHN&quot;</span><br><span class="line">                                 &#125;;</span><br><span class="line"></span><br><span class="line">    [request startWithBlock:^(__kindof KEPRequest * _Nonnull request) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, request);</span><br><span class="line"></span><br><span class="line">    &#125; failure:^(__kindof KEPRequest * _Nonnull request) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, request);</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<h1 id="Code-Repo"><a href="#Code-Repo" class="headerlink" title="Code Repo"></a>Code Repo</h1><p><a href="https://github.com/jackrex/KEPNetwork" target="_blank" rel="noopener">KEPNetwork</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Keep-Mobile<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

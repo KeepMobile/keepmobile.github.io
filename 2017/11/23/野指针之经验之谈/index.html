@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="野指针之经验之谈背景Keep 之前项目有很多野指针Crash，野指针Crash 之所以难解决原因在于：无法复现、堆栈无意义、上报无有效信息。例如Keep 比较多的一个Crash 如下图：
+
+除了我们看到他是崩溃在主函数中之外，其他信息毫无可用之言。而且更具版本分布、设备型号完全没有特殊性，这个给排查">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Keep-Mobile">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="野指针之经验之谈"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Keep-Mobile"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>野指针之经验之谈 - Keep-Mobile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>野指针之经验之谈</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-11-23
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/iOS/">#iOS</a> <a href="/tags/Crash/">#Crash</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="野指针之经验之谈"><a href="#野指针之经验之谈" class="headerlink" title="野指针之经验之谈"></a>野指针之经验之谈</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Keep 之前项目有很多野指针Crash，野指针Crash 之所以难解决原因在于：无法复现、堆栈无意义、上报无有效信息。例如Keep 比较多的一个Crash 如下图：</p>
+<p><img src="/images/wired1.png" alt=""></p>
+<p>除了我们看到他是崩溃在主函数中之外，其他信息毫无可用之言。而且更具版本分布、设备型号完全没有特殊性，这个给排查加大了难度。</p>
+<p>我们着手使用 Address Sanitizer/ Zombie 都无法找到原因。加上Keep 项目十分庞大，给排查问题增加了非常大的难度。</p>
+<p>于是我们分析一下在ARC 情况下怎么能够出现野指针</p>
+<h2 id="野指针原理"><a href="#野指针原理" class="headerlink" title="野指针原理"></a>野指针原理</h2><p>野指针是指指向一个已删除的对象或未申请访问受限内存区域的指针。Obj-C野指针，说的是Obj-C对象释放之后指针未置空，导致的野指针。</p>
+<p>既然是访问已经释放的对象为什么不是必现Crash呢？</p>
+<ul>
+<li>对象释放后内存没被改动过，原来的内存保存完好，可能不Crash或者出现逻辑错误（随机Crash）。</li>
+<li>对象释放后内存没被改动过，但是它自己析构的时候已经删掉某些必要的东西，可能不Crash、Crash在访问依赖的对象比如类成员上、出现逻辑错误（随机Crash）。</li>
+<li>对象释放后内存被改动过，写上了不可访问的数据，直接就出错了很可能Crash在objc_msgSend上面（必现Crash，常见）。</li>
+<li>对象释放后内存被改动过，写上了可以访问的数据，可能不Crash、出现逻辑错误、间接访问到不可访问的数据（随机Crash）。</li>
+<li>对象释放后内存被改动过，写上了可以访问的数据，但是再次访问的时候执行的代码把别的数据写坏了，遇到这种Crash只能哭了（随机Crash，难度大，概率低）！！</li>
+<li>对象释放后再次release（几乎是必现Crash，但也有例外，很常见）。</li>
+</ul>
+<p>如下图：<br><img src="/images/wired2.png" alt=""></p>
+<h2 id="ARC-野指针原因分析"><a href="#ARC-野指针原因分析" class="headerlink" title="ARC 野指针原因分析"></a>ARC 野指针原因分析</h2><p>###原因</p>
+<ul>
+<li>涉及到 c 指针容易出现野指针，常见于系统库或这第三方库中的 delegate 或者其他ref。</li>
+<li>线程问题: 多线程造成的野指针问题。</li>
+<li>在 dealloc 中使用 self 赋值。容易出现 weak_register_no_lock 查看： <a href="http://www.jianshu.com/p/c799b7c2683e" target="_blank" rel="noopener">http://www.jianshu.com/p/c799b7c2683e</a></li>
+</ul>
+<p>###代码建议</p>
+<ul>
+<li>线程安全：从遇到的crash中观察，有两个点需要注意</li>
+<li>dealloc 中清理 UIScrollView，WebView，AVAudioPlayer等delegate</li>
+<li>property getter 方法 lazy load 减少使用</li>
+</ul>
+<p>###案例分析</p>
+<h5 id="典型问题-1-Set-WKWebView-delegate-nil-when-dealloc"><a href="#典型问题-1-Set-WKWebView-delegate-nil-when-dealloc" class="headerlink" title="典型问题 1: Set WKWebView delegate nil when dealloc"></a>典型问题 1: Set WKWebView delegate nil when dealloc</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">295127407	4.10.1(9977)	2017-10-06 09:45:35 729	iPhone 5S	8.4 (12H143)</span><br></pre></td></tr></table></figure>
+<p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023/report?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023/report?pid=2</a></p>
+<p><a href="https://stackoverflow.com/questions/34213352/wkwebview-scrollview-delegate" target="_blank" rel="noopener">https://stackoverflow.com/questions/34213352/wkwebview-scrollview-delegate</a></p>
+<h5 id="典型问题-2-怀疑：UITableVIew-Delegate-zombie-的问题"><a href="#典型问题-2-怀疑：UITableVIew-Delegate-zombie-的问题" class="headerlink" title="典型问题 2:  怀疑：UITableVIew Delegate zombie 的问题"></a>典型问题 2:  怀疑：UITableVIew Delegate zombie 的问题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">295125660	4.10.1(9977)	2017-10-06 09:07:07 363	iPhone 6 Plus	8.1 (12B411)</span><br></pre></td></tr></table></figure>
+<p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023/report?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023/report?pid=2</a></p>
+<h5 id="典型问题-3-疑似：WebView-销毁后清理问题"><a href="#典型问题-3-疑似：WebView-销毁后清理问题" class="headerlink" title="典型问题 3 疑似：WebView 销毁后清理问题"></a>典型问题 3 疑似：WebView 销毁后清理问题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[AVPlayerViewController(AVPlaybackControlsViewControllerActions) doneButtonTapped:]</span><br></pre></td></tr></table></figure>
+<p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/2004023?pid=2</a></p>
+<h5 id="典型问题-4-怀疑-performSelector-导致。-【crash-数量多】"><a href="#典型问题-4-怀疑-performSelector-导致。-【crash-数量多】" class="headerlink" title="典型问题 4 怀疑: performSelector 导致。 【crash 数量多】"></a>典型问题 4 怀疑: performSelector 导致。 【crash 数量多】</h5><p>performSelector会 retain，但暴力测试下也不安全。<br>0 libobjc.A.dylib objc_msgSend + 16<br>1 Foundation ___NSThreadPerformPerform + 340</p>
+<h5 id="问题-5-UIWindow-setDelegate"><a href="#问题-5-UIWindow-setDelegate" class="headerlink" title="问题 5 [UIWindow setDelegate:]"></a>问题 5 [UIWindow setDelegate:]</h5><p><a href="https://stackoverflow.com/questions/30473756/crash-in-dismissviewcontrolleranimated-objective-c" target="_blank" rel="noopener">https://stackoverflow.com/questions/30473756/crash-in-dismissviewcontrolleranimated-objective-c</a></p>
+<h5 id="问题-6-线程问题"><a href="#问题-6-线程问题" class="headerlink" title="问题 6 线程问题"></a>问题 6 线程问题</h5><p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1528615?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1528615?pid=2</a></p>
+<h5 id="问题7-线程问题"><a href="#问题7-线程问题" class="headerlink" title="问题7 线程问题"></a>问题7 线程问题</h5><p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1783297?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1783297?pid=2</a></p>
+<h5 id="问题8"><a href="#问题8" class="headerlink" title="问题8"></a>问题8</h5><p><a href="https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1864440?pid=2" target="_blank" rel="noopener">https://bugly.qq.com/v2/crash-reporting/crashes/900003109/1864440?pid=2</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [self _kep_showRouteTracksAnimationWithStep:step currentROI:currentROI];</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>ARC 出现野指针的经典情况都以上Case 中列了出来，最主要是要关注系统库C 层的调用、多线程、强制置为Nil 等情况，文章开篇那个野指针Crash 最后也是由系统库 AVPlayer 造成的，具体如果排查的过程日后在梳理一篇文章和大家探讨。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Keep-Mobile<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="传统中心化系统
+如果A向B转账 100 人民币:
+
+A 向银行提出请求
+银行对A的身份进行校验(密码)，并验证A的账户余额是否有100元
+通过后，银行添加一条转账记录 【A向B转账100元】
+银行在数据库将A的余额扣掉100，B的账户添加100
+
+比特币的去中心化系统比特币是一个去中心化的账本， 每">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Keep-Mobile">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift实现一个区块链"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Keep-Mobile"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift实现一个区块链 - Keep-Mobile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Swift实现一个区块链</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-01-07
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="传统中心化系统"><a href="#传统中心化系统" class="headerlink" title="传统中心化系统"></a>传统中心化系统</h2><p><img src="/images/blockchain/central.png" alt="Image"></p>
+<p>如果A向B转账 100 人民币:</p>
+<ol>
+<li>A 向银行提出请求</li>
+<li>银行对A的身份进行校验(密码)，并验证A的账户余额是否有100元</li>
+<li>通过后，银行添加一条转账记录 【A向B转账100元】</li>
+<li>银行在数据库将A的余额扣掉100，B的账户添加100</li>
+</ol>
+<h2 id="比特币的去中心化系统"><a href="#比特币的去中心化系统" class="headerlink" title="比特币的去中心化系统"></a>比特币的去中心化系统</h2><p>比特币是一个去中心化的账本， 每个客户端都作为P2P的节点存在于网络并自己拥有一份完整的账本<br><img src="/images/blockchain/decentral.png" alt="image"></p>
+<p>如果A向B转账 1 比特币:</p>
+<ol>
+<li>A向周围节点广播转账交易请求：A向B转账1个比特币，并用A账号的私钥签名</li>
+<li>A周围的节点收到请求之后，通过A账号的公钥检查交易的真伪，并且检查A账户是否有足够的余额</li>
+<li>检查通过后，节点在自己的账本记录：A向B转账1比特币</li>
+<li>节点将此交易广播给周围节点，依此扩散直到所有的节点都收到这笔交易。</li>
+</ol>
+<h2 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h2><p><img src="/images/blockchain/blockchain.png" alt="image"></p>
+<p>比特币两个节点互联时需要同步彼此的所有交易信息，区块链就是用于保证所有节点数据的统一，并通过竞争区块打包权的方式，保证了区块链的唯一性。</p>
+<ul>
+<li>以区块为单位同步交易数据</li>
+<li>打包区块奖励: 为保证有节点打包比特币交易，比特币规定打包交易的节点将获得比特币作为酬劳。</li>
+<li>竞争区块打包权: 节点打包交易只需消耗很低的成本和计算资源。通过扔硬币决定谁来打包</li>
+<li>获胜节点打包区块，并广播出去，验证无误之后，咱们就去扔下一个区块的硬币了。</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Transaction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sender: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> recipient: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> amount: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Block</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> index: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">let</span> timestamp: <span class="type">TimeInterval</span></span><br><span class="line">    <span class="keyword">let</span> transactions: [<span class="type">Transaction</span>]</span><br><span class="line">    <span class="keyword">let</span> proof: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> previousHash: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">json</span><span class="params">()</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BlockChain</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> blocks = [<span class="type">Block</span>]()</span><br><span class="line">    <span class="keyword">var</span> currentTransactions = [<span class="type">Transaction</span>]()</span><br><span class="line">    <span class="keyword">var</span> nodes = <span class="type">Set</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line"><span class="comment">//        createBlock(proof: "100", previousHash: "1")</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">createTransaction</span><span class="params">(from sender: String, to recipient: String, amount: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> transaction = <span class="type">Transaction</span>(sender: sender,</span><br><span class="line">                                      recipient: recipient,</span><br><span class="line">                                      amount: amount)</span><br><span class="line">        <span class="keyword">self</span>.currentTransactions.append(transaction)</span><br><span class="line">        <span class="comment">// 广播</span></span><br><span class="line">        <span class="comment">// 返回交易所处的区块</span></span><br><span class="line">        <span class="keyword">return</span> blocks.last?.index + <span class="number">1</span> ?? <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    @discardableResult</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">createBlock</span><span class="params">(proof: String, previousHash: String)</span></span> -&gt; <span class="type">Block</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> block = <span class="type">Block</span>(index: <span class="keyword">self</span>.blocks.<span class="built_in">count</span>,</span><br><span class="line">                          timestamp: <span class="type">Date</span>().timeIntervalSince1970,</span><br><span class="line">                          transactions: currentTransactions,</span><br><span class="line">                          proof: proof,</span><br><span class="line">                          previousHash: previousHash)</span><br><span class="line"></span><br><span class="line">        currentTransactions.removeAll()</span><br><span class="line"></span><br><span class="line">        blocks.append(block)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> block</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(<span class="number">_</span> block: Block)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> sha256(block.json())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//扔硬币 - 工作量证明</span></span><br><span class="line"><span class="comment">//工作量证明算法【寻找一个数字满足某一条件，这个数字很难计算出来，但是很容易验证】</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">BlockChain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">workToProof</span><span class="params">(of lastProof: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> proof = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> !isValid(proof: <span class="type">String</span>(proof), lastProof: lastProof) &#123;</span><br><span class="line">            proof += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">String</span>(proof)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isValid</span><span class="params">(proof: String, lastProof: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> output = sha256(proof + lastProof)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> output.hasPrefix(<span class="string">"0000"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//同步不同节点的数据</span></span><br><span class="line"><span class="comment">//网络当中【最长的】【有效的】链才是实际的链</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">BlockChain</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">register</span><span class="params">(node: String)</span></span> &#123;</span><br><span class="line">        nodes.insert(node)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断某一条链是否是有效的，</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isValid</span><span class="params">(chain: [Block])</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">1</span>..&lt;chain.<span class="built_in">count</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> currentBlock = chain[index]</span><br><span class="line">            <span class="keyword">let</span> previousBlock = chain[index - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> currentBlock.previousHash != hash(previousBlock) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> !isValid(proof: currentBlock.proof, lastProof: previousBlock.proof) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用网络当中最长的链解决冲突</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">resolveConflicts</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> maxChain = nodes</span><br><span class="line">            .<span class="built_in">map</span> &#123; <span class="type">Network</span>.readChain(of: $<span class="number">0</span>) &#125;</span><br><span class="line">            .<span class="built_in">filter</span> &#123; isValid(chain: $<span class="number">0</span>) &#125;</span><br><span class="line">            .sorted(by: &#123; $<span class="number">0</span>.<span class="built_in">count</span> &gt; $<span class="number">1</span>.<span class="built_in">count</span> &#125;)</span><br><span class="line">            .first</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> maxChain = maxChain &#123;</span><br><span class="line">            <span class="keyword">self</span>.blocks = maxChain</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="比特币当前问题"><a href="#比特币当前问题" class="headerlink" title="比特币当前问题"></a>比特币当前问题</h2><h3 id="网络阻塞"><a href="#网络阻塞" class="headerlink" title="网络阻塞"></a>网络阻塞</h3><p>比特币目前使用1mb作为一个区块的大小。由于交易量太大，交易处于很多个区块后面，延迟。</p>
+<h3 id="51-算力攻击"><a href="#51-算力攻击" class="headerlink" title="51% 算力攻击"></a>51% 算力攻击</h3><ol>
+<li>Alice 和 Bob之间使用比特币完成了一杯咖啡的交易，因为是小额交易，Bob在收到Alice的转账通知(不是交易确认的通知，只是表面发起了交易)就给Alice提供了咖啡</li>
+<li>正常情况下，这笔交易会马上被放入交易池等待挖矿节点把自己加入一个新的区块并开始努力”挖矿”</li>
+<li>假设Alice就是那个大boss，拥有网络51%的算力，他真的不愿意为这笔咖啡付钱(有钱人也可能很小气)，于是他开始攻击了</li>
+<li>网络上很多节点都收到了这笔交易并加入区块准备运算了，Alice也同样开始贡献算力，但是在开始之前他把区块里的这笔交易改了，本来这是一笔Alice付款给Bob的交易，被改成Alice转给自己的一笔交易了(更改很容易，只要把接收地址和签名改掉即可)</li>
+<li>Alice开始尝试用这个伪区块进行计算(计算正确后这个快会被加入主块中)，因为拥有51%的算力，Alice比别的节点更容易优先计算成功，导致一个伪造的区块加入了主链。现在网络中有两个区块链:<br><img src="/images/blockchain/51.png" alt="51"></li>
+</ol>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Keep-Mobile<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
